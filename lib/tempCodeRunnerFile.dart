@@ -1,0 +1,1 @@
+import 'package:al24news_app/screens/news_screen.dart';
