@@ -1,5 +1,4 @@
 import 'package:al24news_app/screens/home_screen.dart';
-import 'package:al24news_app/screens/news_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
