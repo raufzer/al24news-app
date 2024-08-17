@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
-# Integration of the dotenv package in the main.dart file
+
 void main() async {
   await dotenv.load();
   runApp(const AL24NewsApp());
