@@ -6,11 +6,11 @@ class NewsService {
   String apiKey = dotenv.env['API_KEY']!;
   final Dio dio;
 
-  NewsService(this.dio);
+  NewsService({required this.dio});
 
-  void getLastetNews() async {
+  Future<List<ArticelModel>> getLastetNews() async {
     Response res = await dio.get(
-        'https://newsdata.io/api/1/latest?country=dz,ma,tn,ly,ne&language=en&apikey=$apiKey');
+        'https://newsdata.io/api/1/latest?apikey=$apiKey');
     Map<String, dynamic> data = res.data;
     List<dynamic> articles = data['results'];
     List<ArticelModel> articlesList = [];
@@ -22,5 +22,6 @@ class NewsService {
           articleDate: article['pubDate']);
       articlesList.add(articelModel);
     }
+    return articlesList;
   }
 }

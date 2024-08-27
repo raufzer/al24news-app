@@ -1,8 +1,8 @@
 class ArticelModel {
   final String? image;
-  final String title;
-  final String articleWriter;
-  final String articleDate;
+  final String?title;
+  final String? articleWriter;
+  final String? articleDate;
 
   ArticelModel({
     required this.image,
