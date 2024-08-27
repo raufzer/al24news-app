@@ -1,17 +1,18 @@
+import 'package:al24news_app/models/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class LatestNewsCard extends StatelessWidget {
-  const LatestNewsCard(
-      {super.key, required this.newsTitle, this.writerName, this.newsDate});
-  final String? newsTitle;
-  final String? writerName;
-  final String? newsDate;
+  const LatestNewsCard({
+    super.key,
+    required this.article,
+  });
+  final ArticelModel article;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 248.0,
+      width: MediaQuery.of(context).size.width - 70,
       height: 171,
       child: SingleChildScrollView(
         child: Column(
@@ -27,15 +28,13 @@ class LatestNewsCard extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12.0),
-                      topRight: Radius.circular(12.0),
-                    ),
-                    child: Image(
-                      image: AssetImage('assets/images/nyc.png'),
-                    ),
-                  ),
+                  ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(12.0),
+                        topRight: Radius.circular(12.0),
+                      ),
+                      child: Image.network(
+                          article.image ?? 'assets/images/nyc.png')),
                   ListTile(
                     titleAlignment: ListTileTitleAlignment.top,
                     contentPadding: const EdgeInsets.symmetric(
@@ -46,7 +45,7 @@ class LatestNewsCard extends StatelessWidget {
                         child: Text(
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
-                          newsTitle ?? "",
+                          article.title ?? "",
                           textAlign: TextAlign.left,
                           style: const TextStyle(
                             fontFamily: 'Roboto',
@@ -65,7 +64,7 @@ class LatestNewsCard extends StatelessWidget {
                         const SizedBox(
                           width: 2.0,
                         ),
-                        Text(writerName ?? '',
+                        Text(article.articleWriter?.join() ?? '',
                             textAlign: TextAlign.left,
                             style: const TextStyle(
                               fontFamily: 'Roboto',
@@ -76,7 +75,7 @@ class LatestNewsCard extends StatelessWidget {
                         const SizedBox(
                           width: 100.0,
                         ),
-                        Text(newsDate ?? '',
+                        Text(article.articleDate ?? '',
                             textAlign: TextAlign.left,
                             style: const TextStyle(
                               fontFamily: 'Roboto',

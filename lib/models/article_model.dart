@@ -1,7 +1,7 @@
 class ArticelModel {
   final String? image;
-  final String?title;
-  final String? articleWriter;
+  final String? title;
+  final List<dynamic>? articleWriter;
   final String? articleDate;
 
   ArticelModel({
@@ -11,3 +11,4 @@ class ArticelModel {
     required this.articleDate,
   });
 }
+

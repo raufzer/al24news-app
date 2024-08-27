@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-class Newscard extends StatelessWidget {
-  const Newscard(
+class NewsCard extends StatelessWidget {
+  const NewsCard(
       {super.key,
       required this.newsTitle,
       this.writerName,
