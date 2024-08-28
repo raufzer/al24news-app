@@ -8,19 +8,19 @@ class NewsService {
 
   NewsService({required this.dio});
 
-  Future<List<ArticelModel>> getLastetNews() async {
+  Future<List<ArticleModel>> getLastetNews() async {
     Response res = await dio.get(
-        'https://newsdata.io/api/1/latest?apikey=$apiKey');
+        'https://newsdata.io/api/1/latest&language=fr,en&?apikey=$apiKey');
     Map<String, dynamic> data = res.data;
     List<dynamic> articles = data['results'];
-    List<ArticelModel> articlesList = [];
+    List<ArticleModel> articlesList = [];
     for (var article in articles) {
-      ArticelModel articelModel = ArticelModel(
+      ArticleModel articleModel = ArticleModel(
           image: article['image_url'],
           title: article['title'],
           articleWriter: article['creator'],
           articleDate: article['pubDate']);
-      articlesList.add(articelModel);
+      articlesList.add(articleModel);
     }
     return articlesList;
   }

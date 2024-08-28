@@ -1,19 +1,21 @@
 import 'package:al24news_app/models/article_model.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:flutter_svg/svg.dart';
+
 
 class LatestNewsCard extends StatelessWidget {
   const LatestNewsCard({
     super.key,
     required this.article,
   });
-  final ArticelModel article;
+
+  final ArticleModel article;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width - 70,
-      height: 171,
+      width: 245,
+      height: 116,
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -29,23 +31,32 @@ class LatestNewsCard extends StatelessWidget {
               child: Column(
                 children: [
                   ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(12.0),
-                        topRight: Radius.circular(12.0),
-                      ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(12.0),
+                      topRight: Radius.circular(12.0),
+                    ),
+                    child: SizedBox(
+                      width: 245,
+                      height: 116,
                       child: Image.network(
-                          article.image ?? 'assets/images/nyc.png')),
+                        article.image ?? 'assets/images/default_image.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                   ListTile(
                     titleAlignment: ListTileTitleAlignment.top,
                     contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 4.0, vertical: 1.0),
+                      horizontal: 4.0,
+                      vertical: 1.0,
+                    ),
                     title: Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: Expanded(
                         child: Text(
+                          article.title ?? "",
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
-                          article.title ?? "",
                           textAlign: TextAlign.left,
                           style: const TextStyle(
                             fontFamily: 'Roboto',
@@ -59,30 +70,29 @@ class LatestNewsCard extends StatelessWidget {
                     subtitle: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Icon(Ionicons.pencil_outline,
-                            size: 11, color: Color(0xFFAEAEAE)),
-                        const SizedBox(
-                          width: 2.0,
+                        
+                        const SizedBox(width: 2.0),
+                        Text(
+                          article.articleWriter?.join() ?? 'No Writer',
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 8.0,
+                            fontWeight: FontWeight.w900,
+                            color: Color(0xFFAEAEAE),
+                          ),
                         ),
-                        Text(article.articleWriter?.join() ?? '',
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 8.0,
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xFFAEAEAE),
-                            )),
-                        const SizedBox(
-                          width: 100.0,
+                        const SizedBox(width: 100.0),
+                        Text(
+                          article.articleDate ?? '',
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 8.0,
+                            fontWeight: FontWeight.w900,
+                            color: Color.fromARGB(114, 232, 0, 0),
+                          ),
                         ),
-                        Text(article.articleDate ?? '',
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 8.0,
-                              fontWeight: FontWeight.w900,
-                              color: Color.fromARGB(114, 232, 0, 0),
-                            )),
                       ],
                     ),
                   ),

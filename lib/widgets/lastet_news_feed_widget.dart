@@ -12,7 +12,7 @@ class LastetNewsFeed extends StatefulWidget {
 }
 
 class _LastetNewsFeedState extends State<LastetNewsFeed> {
-  List<ArticelModel> articles = [];
+  List<ArticleModel> articles = [];
   @override
   void initState(){
     super.initState();
@@ -21,12 +21,13 @@ class _LastetNewsFeedState extends State<LastetNewsFeed> {
 
   Future<void> getLastetNews() async {
     articles = await NewsService(dio: Dio()).getLastetNews();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 230,
+      height: 222,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: articles.length,
