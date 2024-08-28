@@ -62,7 +62,6 @@ flutter:
     - assets/icons/AL24_News_Logo_dark.svg
     - assets/icons/AL24_News_Logo_light.svg
     - assets/images/default_image.png
-    - assets/icons/Writer.svg
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see

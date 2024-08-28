@@ -1,6 +1,6 @@
 import 'package:al24news_app/models/article_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 class LatestNewsCard extends StatelessWidget {
@@ -39,7 +39,7 @@ class LatestNewsCard extends StatelessWidget {
                       width: 245,
                       height: 116,
                       child: Image.network(
-                        article.image ?? 'assets/images/default_image.png',
+                        article.image ?? '',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -70,7 +70,12 @@ class LatestNewsCard extends StatelessWidget {
                     subtitle: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        
+                        SvgPicture.asset(
+                          'assets/icons/Writer.svg',
+                          fit: BoxFit.cover,
+                          width: 10.0,
+                          height: 10.0,
+                        ),
                         const SizedBox(width: 2.0),
                         Text(
                           article.articleWriter?.join() ?? 'No Writer',

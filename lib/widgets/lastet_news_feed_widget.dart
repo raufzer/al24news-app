@@ -27,7 +27,7 @@ class _LastetNewsFeedState extends State<LastetNewsFeed> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 222,
+      height: 230,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: articles.length,
