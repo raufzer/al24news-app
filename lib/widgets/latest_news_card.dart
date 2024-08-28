@@ -1,21 +1,20 @@
 import 'package:al24news_app/models/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:intl/intl.dart';
 
 class LatestNewsCard extends StatelessWidget {
   const LatestNewsCard({
     super.key,
     required this.article,
   });
-
   final ArticleModel article;
-
+  
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 245,
-      height: 116,
+      width: 247,
+      height: 171,
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -39,9 +38,8 @@ class LatestNewsCard extends StatelessWidget {
                       width: 245,
                       height: 116,
                       child: Image.network(
-                        article.image ?? '',
-                        fit: BoxFit.cover,
-                      ),
+                          article.image ?? 'https://i.imgur.com/GtG3SgI.png',
+                          fit: BoxFit.cover),
                     ),
                   ),
                   ListTile(
@@ -77,20 +75,29 @@ class LatestNewsCard extends StatelessWidget {
                           height: 10.0,
                         ),
                         const SizedBox(width: 2.0),
-                        Text(
-                          article.articleWriter?.join() ?? 'No Writer',
-                          textAlign: TextAlign.left,
-                          style: const TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 8.0,
-                            fontWeight: FontWeight.w900,
-                            color: Color(0xFFAEAEAE),
+                        SizedBox(
+                          width: 70,
+                          height: 11,
+                          child: Text(
+                            article.articleWriter?.join() ?? 'No Writer',
+                            textAlign: TextAlign.left,
+                            overflow: TextOverflow
+                                .ellipsis, // Truncate if exceeds maxLines
+                            maxLines: 2,
+                            style: const TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 8.0,
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xFFAEAEAE),
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 100.0),
+                        const SizedBox(width: 80.0),
                         Text(
-                          article.articleDate ?? '',
+                          _formatDate(article.articleDate!),
                           textAlign: TextAlign.left,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                           style: const TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 8.0,
@@ -108,5 +115,15 @@ class LatestNewsCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+String _formatDate(String dateString) {
+  try {
+    final DateTime parsedDate = DateTime.parse(dateString);
+    final DateFormat formatter = DateFormat('MMM dd, yyyy');
+    return formatter.format(parsedDate);
+  } catch (e) {
+    return 'No Date';
   }
 }

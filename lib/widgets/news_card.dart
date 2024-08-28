@@ -1,17 +1,18 @@
+import 'package:al24news_app/models/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class NewsCard extends StatelessWidget {
-  const NewsCard(
-      {super.key,
-      required this.newsTitle,
-      this.writerName,
-      this.newsDate,
-      this.newsCategory});
-  final String? newsTitle;
-  final String? writerName;
-  final String? newsDate;
-  final String? newsCategory;
+  const NewsCard({
+    super.key,
+    required this.article,
+    required this.category,
+  });
+
+  final ArticleModel article;
+  final String category;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +22,15 @@ class NewsCard extends StatelessWidget {
         const SizedBox(
           width: 34,
         ),
-        const SizedBox(
+        SizedBox(
           width: 94,
           height: 104,
           child: ClipRRect(
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(20.0),
             ),
-            child: Image(
-              image: AssetImage('assets/images/nyc.png'),
+            child: Image.network(
+              article.image ?? 'https://i.imgur.com/GtG3SgI.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -43,7 +44,7 @@ class NewsCard extends StatelessWidget {
             SizedBox(
               width: 200,
               child: Text(
-                newsTitle ?? "",
+                article.title ?? "",
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 textAlign: TextAlign.left,
@@ -61,13 +62,19 @@ class NewsCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Icon(Ionicons.pencil_outline,
-                    size: 11, color: Color(0xFFAEAEAE)),
+                SvgPicture.asset(
+                  'assets/icons/Writer.svg',
+                  fit: BoxFit.cover,
+                  width: 10.0,
+                  height: 10.0,
+                ),
                 const SizedBox(
                   width: 2.0,
                 ),
-                Text(writerName ?? '',
-                    textAlign: TextAlign.left,
+                Text(article.articleWriter?.join() ?? 'No Writer',
+                            textAlign: TextAlign.left,
+                            overflow: TextOverflow.ellipsis, // Truncate if exceeds maxLines
+                            maxLines: 2,
                     style: const TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 8.0,
@@ -85,12 +92,11 @@ class NewsCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Icon(Ionicons.tennisball,
-                    size: 11, color: Color(0xFF1C274D)),
+                _category(category),
                 const SizedBox(
                   width: 2.0,
                 ),
-                Text(newsCategory ?? '',
+                Text(category,
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                       fontFamily: 'Roboto',
@@ -101,8 +107,10 @@ class NewsCard extends StatelessWidget {
                 const SizedBox(
                   width: 90.0,
                 ),
-                Text(newsDate ?? '',
+                Text(_formatDate(article.articleDate!),
                     textAlign: TextAlign.left,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     style: const TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 8.0,
@@ -116,4 +124,27 @@ class NewsCard extends StatelessWidget {
       ],
     );
   }
+}
+
+String _formatDate(String dateString) {
+  try {
+    final DateTime parsedDate = DateTime.parse(dateString);
+    final DateFormat formatter = DateFormat('MMM dd, yyyy');
+    return formatter.format(parsedDate);
+  } catch (e) {
+    return 'No Date';
+  }
+}
+
+Icon _category(String category) {
+  if (category == 'world') {
+    return const Icon(Ionicons.globe, size: 11, color: Color(0xFF1C274D));
+  } else if (category == 'science') {
+    return const Icon(Ionicons.flask, size: 11, color: Color(0xFF1C274D));
+  } else if (category == 'health') {
+    return const Icon(Ionicons.medkit, size: 11, color: Color(0xFF1C274D));
+  } else if (category == 'tourism') {
+    return const Icon(Ionicons.musical_notes, size: 11, color: Color(0xFF1C274D));
+}
+  return const Icon(Ionicons.globe, size: 11, color: Color(0xFF1C274D)); 
 }
