@@ -11,36 +11,38 @@ class NewsFeed extends StatefulWidget {
   State<NewsFeed> createState() => _NewsFeedState();
 }
 
-
 class _NewsFeedState extends State<NewsFeed> {
-    List<ArticleModel> articles = [];
+  List<ArticleModel> articles = [];
+  bool isLoading = true;
   @override
   void initState() {
-
     super.initState();
     getNewsByCategory();
   }
 
-    Future<void> getNewsByCategory() async {
+  Future<void> getNewsByCategory() async {
     articles = await NewsService(dio: Dio()).getNewsByCategory('world');
+    isLoading = false;
     setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: articles.length,
-      itemBuilder: (context, index) {
-        return Container(
-          margin: const EdgeInsets.only(bottom: 15),
-          child: NewsCard(
-            article: articles[index] ,
-            category: 'world',
-          ),
-        );
-      },
-    );
+    return isLoading
+        ? const CircularProgressIndicator()
+        : ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: articles.length,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                child: NewsCard(
+                  article: articles[index],
+                  category: 'world',
+                ),
+              );
+            },
+          );
   }
 }
-

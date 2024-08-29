@@ -71,10 +71,13 @@ class NewsCard extends StatelessWidget {
                 const SizedBox(
                   width: 2.0,
                 ),
-                Text(article.articleWriter?.join() ?? 'No Writer',
-                            textAlign: TextAlign.left,
-                            overflow: TextOverflow.ellipsis, // Truncate if exceeds maxLines
-                            maxLines: 2,
+                Text(
+                    _truncateWriterName(
+                        article.articleWriter?.join() ?? 'No Writer'),
+                    textAlign: TextAlign.left,
+                    overflow:
+                        TextOverflow.ellipsis, // Truncate if exceeds maxLines
+                    maxLines: 2,
                     style: const TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 8.0,
@@ -144,7 +147,20 @@ Icon _category(String category) {
   } else if (category == 'health') {
     return const Icon(Ionicons.medkit, size: 11, color: Color(0xFF1C274D));
   } else if (category == 'tourism') {
-    return const Icon(Ionicons.musical_notes, size: 11, color: Color(0xFF1C274D));
+    return const Icon(Ionicons.musical_notes,
+        size: 11, color: Color(0xFF1C274D));
+  }
+  return const Icon(Ionicons.globe, size: 11, color: Color(0xFF1C274D));
 }
-  return const Icon(Ionicons.globe, size: 11, color: Color(0xFF1C274D)); 
+
+String _truncateWriterName(String name) {
+  final regex = RegExp(r'^[^@]+');
+  final match = regex.firstMatch(name);
+  final truncatedName = match?.group(0) ?? name;
+
+  final words = truncatedName.split(' ');
+  if (words.length > 2) {
+    return '${words.sublist(0, 2).join(' ')}...';
+  }
+  return truncatedName;
 }

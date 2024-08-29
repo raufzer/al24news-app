@@ -13,31 +13,35 @@ class LastetNewsFeed extends StatefulWidget {
 
 class _LastetNewsFeedState extends State<LastetNewsFeed> {
   List<ArticleModel> articles = [];
+  bool isLoading = true;
   @override
-  void initState(){
+  void initState() {
     super.initState();
     getLastetNews();
   }
 
   Future<void> getLastetNews() async {
     articles = await NewsService(dio: Dio()).getLastetNews();
+    isLoading = false;
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 230,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: articles.length,
-        itemBuilder: (context, index) {
-          return Container(
-            margin: const EdgeInsets.only(left: 35),
-            child: LatestNewsCard(article: articles[index]),
+    return isLoading
+        ? const CircularProgressIndicator()
+        : SizedBox(
+            height: 230,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: articles.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: const EdgeInsets.only(left: 35),
+                  child: LatestNewsCard(article: articles[index]),
+                );
+              },
+            ),
           );
-        },
-      ),
-    );
   }
 }
