@@ -14,8 +14,8 @@ class LastetNewsFeedBuilder extends StatefulWidget {
 }
 
 class _LastetNewsFeedBuilderState extends State<LastetNewsFeedBuilder> {
-        List<ArticleModel> articles = [];
-      bool isLoading = true;
+  List<ArticleModel> articles = [];
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -23,13 +23,19 @@ class _LastetNewsFeedBuilderState extends State<LastetNewsFeedBuilder> {
   }
 
   Future<void> getLastetNews() async {
-    articles = await NewsService(dio: Dio()).getLastetNews();
+    articles = await NewsService(dio: Dio()).getLatestNews();
     isLoading = false;
     setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
-    
-    return LastetNewsFeed(articles: articles ,);
+    return isLoading
+        ? const CircularProgressIndicator()
+        : articles.isNotEmpty ? LastetNewsFeed(
+            articles: articles,
+          ) : const Center(
+            child: Text('No data found'),
+          );
   }
 }
