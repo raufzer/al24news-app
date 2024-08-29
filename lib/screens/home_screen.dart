@@ -1,6 +1,6 @@
 import 'package:al24news_app/widgets/categories_feed_widget.dart';
-import 'package:al24news_app/widgets/lastet_news_feed_widget.dart';
-import 'package:al24news_app/widgets/news_feed_widget.dart';
+import 'package:al24news_app/widgets/latest_news_feed_widget_builder.dart';
+import 'package:al24news_app/widgets/news_feed_widget_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:al24news_app/widgets/search_bar.dart';
@@ -44,15 +44,17 @@ class HomeScreen extends StatelessWidget {
               onSearch: (value) {},
             ),
             const TitleMain(text: "Latest News"),
-            const LastetNewsFeed(),
+            const LastetNewsFeedBuilder(),
             const CategoriesListView(),
             const SizedBox(
               height: 34,
             ),
-            const NewsFeed(),
+            const NewsFeedBuilder(),
           ],
         ),
       ),
     );
   }
 }
+
+

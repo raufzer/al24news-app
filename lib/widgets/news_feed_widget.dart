@@ -1,36 +1,15 @@
 import 'package:al24news_app/models/article_model.dart';
-import 'package:al24news_app/services/news_service.dart';
 import 'package:al24news_app/widgets/news_card.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-class NewsFeed extends StatefulWidget {
-  const NewsFeed({super.key});
+class NewsFeed extends StatelessWidget {
+  const NewsFeed({super.key,required this.articles});
 
-  @override
-  State<NewsFeed> createState() => _NewsFeedState();
-}
-
-class _NewsFeedState extends State<NewsFeed> {
-  List<ArticleModel> articles = [];
-  bool isLoading = true;
-  @override
-  void initState() {
-    super.initState();
-    getNewsByCategory();
-  }
-
-  Future<void> getNewsByCategory() async {
-    articles = await NewsService(dio: Dio()).getNewsByCategory('world');
-    isLoading = false;
-    setState(() {});
-  }
+  final List<ArticleModel> articles ;
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? const CircularProgressIndicator()
-        : ListView.builder(
+    return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: articles.length,
