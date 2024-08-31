@@ -1,5 +1,6 @@
 import 'package:al24news_app/models/article_model.dart';
 import 'package:al24news_app/utils/category_icons_selections.dart';
+import 'package:al24news_app/utils/category_title_selections.dart';
 import 'package:al24news_app/utils/date_formatting.dart';
 import 'package:al24news_app/utils/truncate_writer_name.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +101,7 @@ class NewsCard extends StatelessWidget {
                 const SizedBox(
                   width: 2.0,
                 ),
-                Text(category,
+                Text(categoryTitle(category),
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                       fontFamily: 'Roboto',

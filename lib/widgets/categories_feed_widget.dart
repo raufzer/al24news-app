@@ -11,10 +11,10 @@ class CategoriesList extends StatelessWidget {
       shrinkWrap: true,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             CategoryCard(
-                category: "general",
+                category: "world",
                 categoryTitle: "All",
                 colorCardBorder: const Color(0xFFDFDFDF),
                 colorText: Colors.white,

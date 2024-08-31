@@ -45,7 +45,10 @@ class _NewsFeedBuilderState extends State<NewsFeedBuilder> {
         future: categoryNews,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return NewsFeed(articles: snapshot.data!);
+            return NewsFeed(
+              articles: snapshot.data!,
+              category: widget.category,
+            );
           } else if (snapshot.hasError) {
             return const ErrorMessage();
           } else {
