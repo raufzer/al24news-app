@@ -1,17 +1,20 @@
+import 'package:al24news_app/models/article_model.dart';
+import 'package:al24news_app/utils/category_icons_selections.dart';
+import 'package:al24news_app/utils/category_title_selections.dart';
+import 'package:al24news_app/utils/date_formatting.dart';
+import 'package:al24news_app/utils/truncate_writer_name.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class Newscard extends StatelessWidget {
-  const Newscard(
-      {super.key,
-      required this.newsTitle,
-      this.writerName,
-      this.newsDate,
-      this.newsCategory});
-  final String? newsTitle;
-  final String? writerName;
-  final String? newsDate;
-  final String? newsCategory;
+class NewsCard extends StatelessWidget {
+  const NewsCard({
+    super.key,
+    required this.article,
+    required this.category,
+  });
+
+  final ArticleModel article;
+  final String category;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +24,15 @@ class Newscard extends StatelessWidget {
         const SizedBox(
           width: 34,
         ),
-        const SizedBox(
+        SizedBox(
           width: 94,
           height: 104,
           child: ClipRRect(
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(20.0),
             ),
-            child: Image(
-              image: AssetImage('assets/images/nyc.png'),
+            child: Image.network(
+              article.image ?? 'https://i.imgur.com/GtG3SgI.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -43,7 +46,7 @@ class Newscard extends StatelessWidget {
             SizedBox(
               width: 200,
               child: Text(
-                newsTitle ?? "",
+                article.title ?? "",
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 textAlign: TextAlign.left,
@@ -61,13 +64,22 @@ class Newscard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Icon(Ionicons.pencil_outline,
-                    size: 11, color: Color(0xFFAEAEAE)),
+                SvgPicture.asset(
+                  'assets/icons/Writer.svg',
+                  fit: BoxFit.cover,
+                  width: 10.0,
+                  height: 10.0,
+                ),
                 const SizedBox(
                   width: 2.0,
                 ),
-                Text(writerName ?? '',
+                Text(
+                    truncateWriterName(
+                        article.articleWriter?.join() ?? 'No Writer'),
                     textAlign: TextAlign.left,
+                    overflow:
+                        TextOverflow.ellipsis, // Truncate if exceeds maxLines
+                    maxLines: 2,
                     style: const TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 8.0,
@@ -85,12 +97,11 @@ class Newscard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Icon(Ionicons.tennisball,
-                    size: 11, color: Color(0xFF1C274D)),
+                categoryIconsSelection(category),
                 const SizedBox(
                   width: 2.0,
                 ),
-                Text(newsCategory ?? '',
+                Text(categoryTitle(category),
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                       fontFamily: 'Roboto',
@@ -101,8 +112,10 @@ class Newscard extends StatelessWidget {
                 const SizedBox(
                   width: 90.0,
                 ),
-                Text(newsDate ?? '',
+                Text(dateFormatting(article.articleDate!),
                     textAlign: TextAlign.left,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     style: const TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 8.0,
