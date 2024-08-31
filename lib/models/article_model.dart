@@ -10,5 +10,11 @@ class ArticleModel {
     required this.articleWriter,
     required this.articleDate,
   });
+  factory ArticleModel.fromJson(Map<String, dynamic> json) {
+    return ArticleModel(
+        image: json['image_url'],
+        title: json['title'],
+        articleWriter: json['creator'],
+        articleDate: json['pubDate']);
+  }
 }
-

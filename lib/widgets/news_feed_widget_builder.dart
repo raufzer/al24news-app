@@ -1,5 +1,7 @@
 import 'package:al24news_app/models/article_model.dart';
 import 'package:al24news_app/services/news_service.dart';
+import 'package:al24news_app/widgets/error_message_widget.dart';
+import 'package:al24news_app/widgets/loading_indicator.dart';
 import 'package:al24news_app/widgets/news_feed_widget.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -14,24 +16,26 @@ class NewsFeedBuilder extends StatefulWidget {
 }
 
 class _NewsFeedBuilderState extends State<NewsFeedBuilder> {
-  List<ArticleModel> articles = [];
-  bool isLoading = true;
+  // ignore: prefer_typing_uninitialized_variables
+  var categoryNews;
   @override
   void initState() {
     super.initState();
-    getNewsByCategory();
-  }
-
-  Future<void> getNewsByCategory() async {
-    articles = await NewsService(dio: Dio()).getNewsByCategory('world');
-    isLoading = false;
-    setState(() {});
+    categoryNews = NewsService(dio: Dio()).getNewsByCategory(category: 'world');
   }
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? const CircularProgressIndicator()
-        : NewsFeed(articles: articles);
+    return FutureBuilder<List<ArticleModel>>(
+        future: categoryNews,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return NewsFeed(articles: snapshot.data!);
+          } else if (snapshot.hasError) {
+            return const ErrorMessage();
+          } else {
+            return const LoadingIndicator();
+          }
+        });
   }
 }

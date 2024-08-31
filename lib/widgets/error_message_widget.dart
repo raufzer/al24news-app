@@ -7,10 +7,8 @@ class ErrorMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SliverToBoxAdapter(
-      child: Center(
-        child: Text('Error fetching data'),
-      ),
+    return const Center(
+      child: Text('An error occurred'),
     );
   }
 }

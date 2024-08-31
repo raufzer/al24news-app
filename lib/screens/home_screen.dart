@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
             ),
             const TitleMain(text: "Latest News"),
             const LastetNewsFeedBuilder(),
-            const CategoriesListView(),
+            const CategoriesFeed(),
             const SizedBox(
               height: 34,
             ),
