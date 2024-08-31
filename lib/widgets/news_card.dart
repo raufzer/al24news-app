@@ -1,7 +1,8 @@
 import 'package:al24news_app/models/article_model.dart';
+import 'package:al24news_app/utils/category_icons_selections.dart';
+import 'package:al24news_app/utils/date_formatting.dart';
+import 'package:al24news_app/utils/truncate_writer_name.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class NewsCard extends StatelessWidget {
@@ -72,7 +73,7 @@ class NewsCard extends StatelessWidget {
                   width: 2.0,
                 ),
                 Text(
-                    _truncateWriterName(
+                    truncateWriterName(
                         article.articleWriter?.join() ?? 'No Writer'),
                     textAlign: TextAlign.left,
                     overflow:
@@ -95,7 +96,7 @@ class NewsCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                _category(category),
+                categoryIconsSelection(category),
                 const SizedBox(
                   width: 2.0,
                 ),
@@ -110,7 +111,7 @@ class NewsCard extends StatelessWidget {
                 const SizedBox(
                   width: 90.0,
                 ),
-                Text(_formatDate(article.articleDate!),
+                Text(dateFormatting(article.articleDate!),
                     textAlign: TextAlign.left,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -127,40 +128,4 @@ class NewsCard extends StatelessWidget {
       ],
     );
   }
-}
-
-String _formatDate(String dateString) {
-  try {
-    final DateTime parsedDate = DateTime.parse(dateString);
-    final DateFormat formatter = DateFormat('MMM dd, yyyy');
-    return formatter.format(parsedDate);
-  } catch (e) {
-    return 'No Date';
-  }
-}
-
-Icon _category(String category) {
-  if (category == 'world') {
-    return const Icon(Ionicons.globe, size: 11, color: Color(0xFF1C274D));
-  } else if (category == 'science') {
-    return const Icon(Ionicons.flask, size: 11, color: Color(0xFF1C274D));
-  } else if (category == 'health') {
-    return const Icon(Ionicons.medkit, size: 11, color: Color(0xFF1C274D));
-  } else if (category == 'tourism') {
-    return const Icon(Ionicons.musical_notes,
-        size: 11, color: Color(0xFF1C274D));
-  }
-  return const Icon(Ionicons.globe, size: 11, color: Color(0xFF1C274D));
-}
-
-String _truncateWriterName(String name) {
-  final regex = RegExp(r'^[^@]+');
-  final match = regex.firstMatch(name);
-  final truncatedName = match?.group(0) ?? name;
-
-  final words = truncatedName.split(' ');
-  if (words.length > 2) {
-    return '${words.sublist(0, 2).join(' ')}...';
-  }
-  return truncatedName;
 }

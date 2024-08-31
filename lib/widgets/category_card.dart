@@ -1,26 +1,26 @@
-import 'package:al24news_app/widgets/categories_feed_widget.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard(
       {super.key,
+      required this.categoryTitle,
       required this.category,
       required this.colorCard,
       required this.colorCardBorder,
-      required this.colorText});
+      required this.colorText,
+      required this.onCategorySelected});
+  final String categoryTitle;
   final String category;
   final Color colorCardBorder;
   final Color colorCard;
   final Color colorText;
+  final Function(String) onCategorySelected;
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed :  () {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context){
-              return const CategoriesFeed();
-            }));
+        onCategorySelected(category);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
@@ -33,7 +33,7 @@ class CategoryCard extends StatelessWidget {
           ),
         ),
         child: Text(
-          category,
+          categoryTitle,
           style: TextStyle(
             color: colorText,
             fontSize: 12.0,

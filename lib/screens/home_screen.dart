@@ -7,9 +7,23 @@ import 'package:al24news_app/widgets/search_bar.dart';
 import 'package:al24news_app/widgets/title_widget.dart';
 import 'package:ionicons/ionicons.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String selectedCategory = "All";
   final primaryColor = const Color(0xFFF8F8FA);
+
+  void onCategorySelected(String category) {
+    setState(() {
+      selectedCategory = category;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,10 +31,10 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: primaryColor,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center, // Center horizontally
+          mainAxisAlignment: MainAxisAlignment.center, 
           children: [
             SvgPicture.asset('assets/icons/AL24_News_Logo_dark.svg',
-                fit: BoxFit.cover // Adjust height as needed
+                fit: BoxFit.cover 
                 ),
           ],
         ),
@@ -45,16 +59,18 @@ class HomeScreen extends StatelessWidget {
             ),
             const TitleMain(text: "Latest News"),
             const LastetNewsFeedBuilder(),
-            const CategoriesFeed(),
+            CategoriesList(
+              onCategorySelected: onCategorySelected,
+            ),
             const SizedBox(
               height: 34,
             ),
-            const NewsFeedBuilder(),
+            NewsFeedBuilder(
+              category: selectedCategory,
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-

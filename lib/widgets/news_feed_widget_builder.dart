@@ -7,8 +7,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class NewsFeedBuilder extends StatefulWidget {
+  final String category;
+
   const NewsFeedBuilder({
     super.key,
+    required this.category,
   });
 
   @override
@@ -21,7 +24,19 @@ class _NewsFeedBuilderState extends State<NewsFeedBuilder> {
   @override
   void initState() {
     super.initState();
-    categoryNews = NewsService(dio: Dio()).getNewsByCategory(category: 'world');
+    categoryNews =
+        NewsService(dio: Dio()).getNewsByCategory(category: widget.category);
+  }
+
+  @override
+  void didUpdateWidget(NewsFeedBuilder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.category != widget.category) {
+      setState(() {
+        categoryNews = NewsService(dio: Dio())
+            .getNewsByCategory(category: widget.category);
+      });
+    }
   }
 
   @override

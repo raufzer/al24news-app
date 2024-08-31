@@ -8,7 +8,6 @@ void main() async {
   runApp(const AL24NewsApp());
 }
 
-String apiKey = dotenv.env['API_KEY']!;
 
 class AL24NewsApp extends StatelessWidget {
   const AL24NewsApp({super.key});
