@@ -17,10 +17,9 @@
 * **Dart:** Programming language optimized for building cross-platform apps with Flutter.
 
 ## Screenshots
-
-
-![Home Screen](./assets/screenshoots/home_screen.png)
-![News Screen](assets/screenshoots/news_screen.png)
+| Home Screen       | News Article Screen       |
+| ----------------- | ------------------------ |
+| ![Home Screen](./assets/screenshoots/home_screen.png)| ![News Detail Screen](assets/screenshoots/news_screen.png)
 
 ## Getting Started
 
