@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:al24news_app/widgets/category_card.dart';
 
 class CategoriesList extends StatelessWidget {
-  final Function(String) onCategorySelected;
   const CategoriesList({super.key, required this.onCategorySelected});
-
+  final Function(String) onCategorySelected;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -20,6 +19,7 @@ class CategoriesList extends StatelessWidget {
                 colorText: Colors.white,
                 colorCard: const Color(0xFFE80000),
                 onCategorySelected: onCategorySelected),
+                
             CategoryCard(
                 category: "science",
                 categoryTitle: "Science",

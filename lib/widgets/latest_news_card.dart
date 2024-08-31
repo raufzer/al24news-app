@@ -1,7 +1,7 @@
 import 'package:al24news_app/models/article_model.dart';
+import 'package:al24news_app/utils/date_formatting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 
 class LatestNewsCard extends StatelessWidget {
   const LatestNewsCard({
@@ -94,7 +94,7 @@ class LatestNewsCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 80.0),
                         Text(
-                          _formatDate(article.articleDate!),
+                          dateFormatting(article.articleDate!),
                           textAlign: TextAlign.left,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
@@ -118,12 +118,4 @@ class LatestNewsCard extends StatelessWidget {
   }
 }
 
-String _formatDate(String dateString) {
-  try {
-    final DateTime parsedDate = DateTime.parse(dateString);
-    final DateFormat formatter = DateFormat('MMM dd, yyyy');
-    return formatter.format(parsedDate);
-  } catch (e) {
-    return 'No Date';
-  }
-}
+

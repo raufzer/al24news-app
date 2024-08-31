@@ -11,7 +11,7 @@ class CategoryCard extends StatelessWidget {
     required this.onCategorySelected,
     this.isSelected = false,
   });
-  final bool isSelected;
+  final bool isSelected; 
   final String categoryTitle;
   final String category;
   final Color colorCardBorder;
@@ -23,7 +23,7 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onCategorySelected(category);
+        onCategorySelected(category); 
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
