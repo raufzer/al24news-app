@@ -34,20 +34,15 @@
 1. Clone the repository:
    ```bash
    git clone [the repo url]
-2. Create a virtual environment:
+2. Navigate to the project directory:
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # or venv\Scripts\activate on Windows
+   cd al24_news_app
 3. Install dependencies:
    ```bash
-   pip install -r requirements.txt
-4. Configure database settings (update settings.py with your database credentials).
-5. Run migrations:
+   flutter pub get
+4. Run the app on an emulator or physical device::
    ```bash
-   python manage.py migrate
-6. Start the development server:
-   ```bash
-   python manage.py runserver
+   flutter run
 
 ### Contributing
 We welcome contributions to AL24News! Please refer to our contribution guidelines for details.
